@@ -6,4 +6,4 @@ config :task_6, Users.Repo,
   password: "stefan1202",
   hostname: "localhost"
 
-config :task_6, ecto_repos: [ Users.Repo ]
+config :task_6, ecto_repos: [Users.Repo]
