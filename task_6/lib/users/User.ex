@@ -94,7 +94,9 @@ defmodule Users.User do
 
   def login(login, password) do
     case Repo.get_by(User, login: login, password: password) do
-      nil -> {:error, :login_error}
+      nil ->
+        {:error, :login_error}
+
       %User{} = user ->
         {
           :ok,
@@ -104,12 +106,7 @@ defmodule Users.User do
         }
     end
   end
-
-
-
-
 end
-
 
 # _________________________test_in_iex__________________________________________
 # Users.User.create_user("login_1", "password_1")
