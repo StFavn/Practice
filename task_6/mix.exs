@@ -1,9 +1,9 @@
-defmodule AppAssoc.MixProject do
+defmodule Task6.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :app_assoc,
+      app: :task_6,
       version: "0.1.0",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
@@ -15,7 +15,7 @@ defmodule AppAssoc.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {AppAssoc.Application, []}
+      mod: {Task6.Application, []}
     ]
   end
 

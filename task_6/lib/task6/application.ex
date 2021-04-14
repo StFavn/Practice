@@ -1,4 +1,4 @@
-defmodule AppAssoc.Application do
+defmodule Task6.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -8,14 +8,14 @@ defmodule AppAssoc.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: AppAssoc.Worker.start_link(arg)
-      # {AppAssoc.Worker, arg}
-    Friends.Repo
+      # Starts a worker by calling: Task6.Worker.start_link(arg)
+      # {Task6.Worker, arg}
+      Users.Repo
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: AppAssoc.Supervisor]
+    opts = [strategy: :one_for_one, name: Task6.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end
