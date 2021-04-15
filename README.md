@@ -12,7 +12,7 @@ task_4: Задача 4 - ecto: user = login, password
 
 task_5: Задача 5 - ecto: user + status
 
-task_6: Задача 6 - ecto: user + status + post +GIT
-    -без encrypted_password
-    -без функций удаления/замены статуса
-    -без функции удаления пользователя вместе со структурами
+    task_6: Задача 6 - ecto: user + status + post +GIT      15.04.2021 17:37
+    -с encrypted_password
+    -с функцией удаления/замены статуса
+    -с функцией удаления пользователя вместе со структурами
