@@ -243,8 +243,7 @@ end
 #       {:error, :login_error}
 
 #     user ->
-#       user_id = from(i in user, select: i.id)
-#       case Repo.delete_all(user_id) do
+#       case Repo.delete_all(user) do
 #         {:ok, user} -> {:ok, user}
 #         {:error, _} -> {:error, :database_error}
 #       end
