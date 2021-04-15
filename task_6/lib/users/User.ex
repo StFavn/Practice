@@ -40,9 +40,16 @@ defmodule Users.User do
   def create_user(login, password) do
     case Repo.get_by(User, login: login) do
       nil ->
-        %User{login: login, password: password}
-        |> changeset(%{login: login, password: password})
-        |> Repo.insert() # возвращает {:ok, user}
+        result =
+          %User{}
+          |> changeset(%{login: login, password: password})
+          |> Repo.insert() # возвращает {:ok, user}
+
+        case result do
+          {:ok, user} -> {:ok, user}
+          {:error, _} -> {:error, :create_user_error}
+        end
+
 
       _ ->
         {:error, :alrady_exist}
