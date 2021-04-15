@@ -243,7 +243,7 @@ end
 #       {:error, :login_error}
 
 #     user ->
-#       case Repo.delete_all(user) do
+#       case Repo.delete(user) do
 #         {:ok, user} -> {:ok, user}
 #         {:error, _} -> {:error, :database_error}
 #       end
