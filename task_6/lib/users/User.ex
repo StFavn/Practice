@@ -97,23 +97,19 @@ defmodule Users.User do
           end
 
         # Удаление постов пользователя
+        posts_id = from(i in Users.Post, where: i.user_id == ^user_id, select: i.id)
         result_posts_del =
-          # Создание списка id постов пользователя
-          posts_id =
-            from(i in Users.Post, where: i.user_id == ^user_id, select: i.id)
-            |> Users.Repo.all()
+          # Проверка наличия постов пользователя
+          case posts_id |> Users.Repo.all() do
+            [] ->
+              :ok
 
-        # Проверка наличия постов пользователя
-        case posts_id do
-          [] ->
-            :ok
-
-          _ ->
-            case Repo.delete_all(posts_id) do
-              {:error, _} -> {:error, :database_error}
-              _ -> :ok
-            end
-        end
+            _ ->
+              case posts_id |> Repo.delete_all() do
+                {:error, _} -> {:error, :database_error}
+                _ -> :ok
+              end
+          end
 
         # Удаление пользователя
         result_user_del =
@@ -215,14 +211,22 @@ end
 
 # _________________________test_in_iex__________________________________________
 # Users.User.create_user("login_1", "password_1") - регестрирует пользователя
+# Users.User.set_status("login_1", "password_1", "Status_1_1") - добавляет новый статус
+# Users.User.set_status("login_1", "password_1", "Status_1_2") - заменяет существующий
+# Users.User.set_post("login_1", "password_1", "title_1_1", "text_by_post_1_1") - создает пост 1
+# Users.User.set_post("login_1", "password_1", "title_1_2", "text_by_post_1_2") - создает пост 2
 # Users.User.login("login_1", "password_1") - показывает пользователя вместе со статусом и постами
 # Users.User.delete_user("login_1", "password_1") - удаляет пользователя вместе со статусом и постами
-# Users.User.set_status("login_1", "password_2", "text_1") - заменяет существующий или добавляет новый статус
-# Users.User.set_post("login_1", "password_1", "title_1", "text_by_post_1") - создает посты
+
+
 
 # ___________________________other_______________________________________________
 # Users.Repo.get_by(Users.User, login: "login_1") |> Users.Repo.preload(:statuses)
 # Users.Repo.get_by(Users.User, login: "login_1")
+
+# [user_id] = from(i in Users.User, where: i.login == "login_1", select: i.id) |> Users.Repo.all()
+# posts_id = from(i in Users.Post, where: i.user_id == ^user_id, select: i.id) |> Users.Repo.all()
+#
 # _______________________________________________________________________________
 # Удаление пользоваателя, которое не работает, если существует статус
 #
